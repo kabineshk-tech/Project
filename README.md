@@ -29,8 +29,79 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Environment Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This application requires the following environment variables:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Configure the following variables in `.env.local`:
+   - `RESEND_API_KEY` - Your Resend API key from https://resend.com/api-keys
+   - `ADMIN_EMAIL` - Email address to receive registration notifications
+
+**Important:** Never commit `.env.local` to version control.
+
+## Deployment to Vercel
+
+### Option 1: Vercel CLI (Recommended for first deployment)
+
+1. Install Vercel CLI globally:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. Login to your Vercel account:
+   ```bash
+   vercel login
+   ```
+
+3. Deploy from the project root:
+   ```bash
+   cd /path/to/my-app
+   vercel
+   ```
+
+4. Set environment variables in Vercel:
+   ```bash
+   vercel env add RESEND_API_KEY
+   vercel env add ADMIN_EMAIL
+   ```
+
+5. Deploy to production:
+   ```bash
+   vercel --prod
+   ```
+
+### Option 2: GitHub Integration (Recommended for continuous deployment)
+
+1. Push your code to GitHub
+2. Go to [Vercel Dashboard](https://vercel.com/new)
+3. Import your repository
+4. Configure environment variables in Project Settings → Environment Variables:
+   - `RESEND_API_KEY`
+   - `ADMIN_EMAIL`
+5. Deploy - Vercel will automatically deploy on every push to main branch
+
+### Production Checklist
+
+Before deploying to production, ensure:
+
+- [ ] Local build succeeds: `npm run build`
+- [ ] Environment variables are set in Vercel dashboard
+- [ ] `.env.local` is NOT committed to git
+- [ ] Test the registration form functionality
+- [ ] Verify emails are being sent to the correct admin email
+- [ ] Test rate limiting (try submitting form 6+ times)
+
+### Post-Deployment Verification
+
+After deployment:
+
+1. Visit your deployed URL
+2. Test the registration form at `/registerform`
+3. Verify email delivery in your inbox and Resend dashboard
+4. Check Vercel deployment logs for any errors
+5. Run a Lighthouse audit for performance metrics
