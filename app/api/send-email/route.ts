@@ -283,7 +283,7 @@ export async function POST(request: NextRequest) {
 
     // Send email via Resend
     const emailResult = await resend.emails.send({
-      from: 'Registration System <onboarding@resend.dev>',
+      from: 'Registration System <Kabinesh.k@centilio.com>',
       to: process.env.ADMIN_EMAIL,
       replyTo: data.email,
       subject: `New Registration: ${data.fullName}`,
